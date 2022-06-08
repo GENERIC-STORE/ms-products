@@ -17,12 +17,12 @@ public class ProductServiceImpl implements IProductService {
     @Override
     @Transactional(readOnly = true)
     public Flux<Product> findAll() {
-        return repository.findAll();
+        return Flux.fromIterable(repository.findAll());
     }
 
     @Override
     @Transactional(readOnly = true)
     public Mono<Product> findById(Long id) {
-        return repository.findById(id);
+        return Mono.just(repository.findById(id).orElse(null));
     }
 }
